@@ -1,0 +1,5 @@
+com/bigpanda/task/observe/Producer.class
+com/bigpanda/task/http_api/HttpController.class
+com/bigpanda/task/SpringApp.class
+com/bigpanda/task/NonBlockingQueue.class
+com/bigpanda/task/observe/Consumer.class
