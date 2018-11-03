@@ -29,7 +29,14 @@ public class SpringApp {
         //ShellComand.executeCommand(app.getResource("classpath:generator-linux-amd64").getURL().getPath());
         NonBlockingQueue<JSONObject> sharedQueue = new NonBlockingQueue<>();
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        Producer producer = new Producer(sharedQueue,app.getResource("classpath:generator-linux-amd64").getURL().getPath());
+        Producer producer;
+        if (args.length > 0) {
+            System.out.println(args[0]);
+            producer = new Producer(sharedQueue, args[0]);
+        }
+        else {
+            producer = new Producer(sharedQueue, app.getResource("classpath:generator-linux-amd64").getURL().getPath());
+        }
         Consumer consumer = new Consumer(sharedQueue);
         executor.submit(producer);
         executor.submit(consumer);

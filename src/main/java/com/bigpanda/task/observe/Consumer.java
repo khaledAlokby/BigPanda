@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Consumer implements Runnable{
-    public volatile static Map<String, Integer> eventsMap = new HashMap<>();
-    public volatile static Map<String, Integer> dataMap = new HashMap<>();
+    public volatile static Map<String, Long> eventsMap = new HashMap<>();
+    public volatile static Map<String, Long> dataMap = new HashMap<>();
     private final NonBlockingQueue<JSONObject> sharedQueue;
 
     public Consumer(NonBlockingQueue<JSONObject> sharedQueue) {
@@ -27,13 +27,13 @@ public class Consumer implements Runnable{
                 if (eventsMap.containsKey(eventType)){
                     eventsMap.put(eventType,eventsMap.get(eventType)+1);
                 }else {
-                    eventsMap.put(eventType,1);
+                    eventsMap.put(eventType, (long) 1);
                 }
                 String data = msg.getString("data");
                 if (dataMap.containsKey(data)){
                     dataMap.put(data,dataMap.get(data)+1);
                 }else {
-                    dataMap.put(data,1);
+                    dataMap.put(data, (long) 1);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
